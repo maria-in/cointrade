@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "CoinTrade"
 include(":app")
 include(":coingeckoapi")
+include(":database")
