@@ -14,7 +14,7 @@ interface CoinDao {
     fun getCoinsList(): Flow<List<CoinEntity>>
 
     @Insert
-    suspend fun insertAllCoins(coins: List<CoinEntity>?)
+    suspend fun insertAllCoins(coins: List<CoinEntity>)
 
     @Delete
     suspend fun removeAllCoins(coins: List<CoinEntity>)
