@@ -23,3 +23,5 @@ rootProject.name = "CoinTrade"
 include(":app")
 include(":coingeckoapi")
 include(":database")
+include(":features:coin-main")
+include(":coin-data")
