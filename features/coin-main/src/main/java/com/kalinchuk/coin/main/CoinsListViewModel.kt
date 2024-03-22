@@ -2,24 +2,24 @@ package com.kalinchuk.coin.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kalinchuk.coin.data.CoinsRepository
 import com.kalinchuk.coin.data.RequestResult
 import com.kalinchuk.coin.data.models.Coin
 import com.kalinchuk.coin.main.usecases.GetCoinsListUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
+import javax.inject.Provider
 
-internal class CoinsListViewModel(
-    private val getCoinsListUseCase: GetCoinsListUseCase
+@HiltViewModel
+internal class CoinsListViewModel @Inject constructor(
+    getCoinsListUseCase: Provider<GetCoinsListUseCase>
 ) : ViewModel() {
 
     val state: SharedFlow<State> =
-        getCoinsListUseCase()
+        getCoinsListUseCase.get().invoke()
             .map { list -> list.toState() }
             .stateIn(viewModelScope, SharingStarted.Lazily, State.None)
 }

@@ -39,4 +39,6 @@ dependencies {
 
     implementation(project(":database"))
     implementation(project(":coingeckoapi"))
+
+    implementation(libs.jakarta.inject)
 }
