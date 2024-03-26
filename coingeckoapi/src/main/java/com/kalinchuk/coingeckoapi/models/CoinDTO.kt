@@ -31,12 +31,12 @@ data class CoinDTO(
     @SerialName("atl") val atl: Float,
     @SerialName("atl_change_percentage") val atlChangePercentage: Float,
     @SerialName("atl_date") @Serializable(with = DateSerializer::class) val atlDate: Date,
-    @SerialName("roi") val roi: Roi?,
+    @SerialName("roi") val roi: RoiDTO?,
     @SerialName("last_updated") @Serializable(with = DateSerializer::class) val lastUpdated: Date
 )
 
 @Serializable
-data class Roi(
+data class RoiDTO(
     @SerialName("times") val times: Float,
     @SerialName("currency") val currency: String,
     @SerialName("percentage") val percentage: Float

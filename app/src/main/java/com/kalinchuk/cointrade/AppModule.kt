@@ -3,6 +3,7 @@ package com.kalinchuk.cointrade
 import android.content.Context
 import com.kalinchuk.coin.database.CoinDatabase
 import com.kalinchuk.coingeckoapi.CoinGeckoApi
+import com.kalinchuk.common.AppDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +16,6 @@ import javax.inject.Singleton
 object AppModule {
 
     @Provides
-    @Singleton
     fun provideCoinGeckoApi(): CoinGeckoApi {
         return CoinGeckoApi(
             apiKey = BuildConfig.API_KEY,
@@ -27,5 +27,11 @@ object AppModule {
     @Singleton
     fun provideDatabase(@ApplicationContext context: Context): CoinDatabase {
         return CoinDatabase(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppCoroutineDispatchers(): AppDispatchers {
+        return AppDispatchers()
     }
 }

@@ -15,4 +15,5 @@ dependencies {
     implementation(libs.kotlin.serialization.json)
     implementation(libs.retrofit.serialization.converter)
     implementation(libs.retrofit.adapter.result)
+    implementation(libs.okhttp)
 }

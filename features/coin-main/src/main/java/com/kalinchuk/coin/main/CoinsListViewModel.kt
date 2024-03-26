@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kalinchuk.coin.data.RequestResult
 import com.kalinchuk.coin.data.models.Coin
+import com.kalinchuk.coin.main.usecases.CheckStatusUseCase
 import com.kalinchuk.coin.main.usecases.GetCoinsListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharedFlow
@@ -15,16 +16,20 @@ import javax.inject.Provider
 
 @HiltViewModel
 internal class CoinsListViewModel @Inject constructor(
-    getCoinsListUseCase: Provider<GetCoinsListUseCase>
+    getCoinsListUseCase: Provider<GetCoinsListUseCase>,
+    checkStatusUseCase: Provider<CheckStatusUseCase>
 ) : ViewModel() {
 
     val state: SharedFlow<State> =
         getCoinsListUseCase.get().invoke()
             .map { list -> list.toState() }
             .stateIn(viewModelScope, SharingStarted.Lazily, State.None)
+
+    val status: SharedFlow<String> = checkStatusUseCase.get().invoke().map { it }
+        .stateIn(viewModelScope, SharingStarted.Lazily, "")
 }
 
-sealed class State {
+internal sealed class State {
 
     data object None : State()
     data object Loading : State()

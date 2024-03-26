@@ -74,4 +74,6 @@ dependencies {
     implementation(project(":coin-data"))
     implementation(project(":coingeckoapi"))
     implementation(project(":database"))
+    implementation(project(":common"))
+    implementation(project(":features:coin-main"))
 }

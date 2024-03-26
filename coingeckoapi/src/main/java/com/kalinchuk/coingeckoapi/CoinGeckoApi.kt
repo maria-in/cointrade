@@ -2,13 +2,15 @@ package com.kalinchuk.coingeckoapi
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.kalinchuk.coingeckoapi.models.CoinDTO
+import com.kalinchuk.coingeckoapi.models.PingResponse
 import com.kalinchuk.coingeckoapi.utils.CoinGeckoApiInterceptor
 import com.skydoves.retrofit.adapters.result.ResultCallAdapterFactory
 import kotlinx.serialization.json.Json
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -22,7 +24,7 @@ interface CoinGeckoApi {
      * API details [here](https://docs.coingecko.com/v3.0.1/reference/ping-server)
      */
     @GET("/ping")
-    suspend fun checkServerStatus(): Result<Response<Unit>>
+    suspend fun checkServerStatus(): PingResponse
 
     /**
      * API details [here](https://docs.coingecko.com/v3.0.1/reference/coins-list)
@@ -43,28 +45,26 @@ interface CoinGeckoApi {
 }
 
 fun CoinGeckoApi(
-    apiKey: String = "CG-obCznXcU9aErYxj4UTcypzmg",
-    baseUrl: String,
-    okHttpClient: OkHttpClient? = null,
+    apiKey: String,
+    baseUrl: String
 ): CoinGeckoApi {
-    return retrofit(apiKey, baseUrl, okHttpClient).create(CoinGeckoApi::class.java)
+    return retrofit(apiKey, baseUrl).create()
 }
 
 private fun retrofit(
     apiKey: String,
-    baseUrl: String,
-    okHttpClient: OkHttpClient?,
+    baseUrl: String
 ): Retrofit {
-    val contentType = MediaType.get("application/json")
+    val contentType = "application/json".toMediaType()
 
-    val client: OkHttpClient = (okHttpClient?.newBuilder() ?: OkHttpClient.Builder())
+    val client: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(CoinGeckoApiInterceptor(apiKey))
         .build()
 
     return Retrofit.Builder()
         .baseUrl(baseUrl)
         .addConverterFactory(Json.asConverterFactory(contentType))
-        .addCallAdapterFactory(ResultCallAdapterFactory.create())
+        //.addCallAdapterFactory(ResultCallAdapterFactory.create())
         .client(client)
         .build()
 }
