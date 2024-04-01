@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     implementation(project(":coin-data"))
+    implementation(project(":coin-uikit"))
 
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)

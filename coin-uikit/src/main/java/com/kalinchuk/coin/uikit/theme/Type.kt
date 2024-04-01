@@ -1,4 +1,4 @@
-package com.kalinchuk.cointrade.ui.theme
+package com.kalinchuk.coin.uikit.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

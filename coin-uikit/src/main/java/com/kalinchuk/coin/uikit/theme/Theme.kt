@@ -1,4 +1,4 @@
-package com.kalinchuk.cointrade.ui.theme
+package com.kalinchuk.coin.uikit.theme
 
 import android.app.Activity
 import android.os.Build

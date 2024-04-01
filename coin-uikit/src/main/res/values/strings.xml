@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CoinTrade</string>
+
+    <!-- currency names -->
+    <string name="united_states_dollar">United States Dollar</string>
+    <string name="euro">Euro</string>
+    <string name="british_pound_sterling">British Pound Sterling</string>
+    <string name="japanese_yen">Japanese Yen</string>
+    <string name="canadian_dollar">Canadian Dollar</string>
+    <string name="australian_dollar">Australian Dollar</string>
+</resources>
